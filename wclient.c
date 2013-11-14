@@ -9,6 +9,10 @@ extern int  Connect(int sockfd, const struct sockaddr_in servaddr);
 void str_cli(FILE *fp, int sockfd);
 
 
+/*
+ * 主函数
+ *
+ */
 int main(void)
 {
 	int	i,sock;
