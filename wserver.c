@@ -7,10 +7,12 @@
 
 
 /****** 函数声明 ******/
-//extern int  Socket(int family, int type, int protocol);
-//extern int  Bind(int sockfd, const struct sockaddr_in myaddr);
-//extern int  Listen(int sockfd, int backlog);
-//extern ssize_t writen(int fd, const void *vptr, size_t n);
+extern int  Socket(int family, int type, int protocol);
+extern int  Bind(int sockfd, const struct sockaddr_in myaddr);
+extern int  Listen(int sockfd, int backlog);
+extern ssize_t writen(int fd, const void *vptr, size_t n);
+extern int Log(int level, char *src_file, int src_line, char *fmt, ...);
+
 
 int init_socket_server(int iPort, int backlog);
 void str_echo(int sockfd);
@@ -29,7 +31,9 @@ int main(void)
 		fprintf(stderr, "初始化网络服务错误[%s][%d]\n", __FILE__, __LINE__);
 		exit(-1);
 	}
-printf("all ready,waiting for request!\n");
+
+	printf("all ready,waiting for request!\n");
+	Log(TRACE_NORMAL, "all ready, waiting for request!\n");
 
 	while(1)
 	{
@@ -120,6 +124,8 @@ again:
 	{
 		writen(sockfd, buf, n);
 		fputs(buf, stdout);
+
+		Log(TRACE_NORMAL, "%s", buf);
 	}
 	if(n < 0 && errno == EINTR)
 		goto again;

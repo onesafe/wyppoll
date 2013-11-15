@@ -152,3 +152,100 @@ char *Int2Buf(int value, char *buf, unsigned int len)
 	buf[len] = '\0';
 	return buf;
 }
+
+
+/*
+ * 把缓冲区转化成字符串
+ *
+ * @buf		入参，缓冲区
+ * @len		入参，缓冲区长度
+ *
+ * 返回字符串
+ * 注：函数不可重入，缓冲区长度不能大于1024
+ */
+char *BufToStr(const char *buf, unsigned int len)
+{
+	static char sBuf[1024 + 1];
+	
+	memset(sBuf, 0, sizeof(sBuf));
+	
+	if(len + 1 > sizeof(sBuf))
+		return NULL;
+	memcpy(sBuf, buf, len);
+	sBuf[len] = '\0';
+	
+	return sBuf;
+}
+
+/*
+ * 计算当前系统日期时间(YYYYMMDDHHMMSS)
+ *
+ * @buf		出参 YYYYMMDDHHMMSS
+ *
+ * 如果buf == NULL，函数不可重入，返回值指向静态变量ret_buf
+ * 如果buf != NULL, 函数可重入，返回值指向出参buf
+ */
+char *DateTimeNow(char *buf)
+{
+	time_t		now;
+	struct tm	*ttime;
+	static char	ret_buf[14+1];
+	
+	memset(ret_buf, 0, sizeof(ret_buf));
+	
+	time(&now);
+	ttime = localtime(&now);
+	sprintf(ret_buf, "%4d%02d%02d%02d%02d%02d", ttime->tm_year + 1900, ttime->tm_mon + 1, ttime->tm_mday, ttime->tm_hour, ttime->tm_min, ttime->tm_sec);
+
+	if(buf)
+	{
+		memcpy(buf, ret_buf, 14);
+		return buf;
+	}
+
+	return ret_buf;
+}
+
+
+/*
+ * 计算当前系统日期(YYYYMMDD)
+ *
+ * @buf		出参 YYYYMMDD
+ *
+ * 如果buf == NULL, 函数不可重入，返回值指向静态变量ret_buf
+ * 如果buf != NULL, 函数可重入，返回值指向出参buf
+ */
+char *DateNow(char *buf)
+{
+	static char ret_buf[14+1];
+	char		*p;
+	
+	memset(ret_buf, 0, sizeof(ret_buf));
+	p = (buf ? buf : ret_buf);
+	memcpy(p, DateTimeNow(NULL), 8);
+	p[8] = '\0';
+
+	return p;
+}
+
+
+/*
+ * 计算当前系统时间(HHMMSS)
+ *
+ * @buf		出参 HHMMSS
+ *
+ * 如果buf == NULL, 函数不可重入，返回值指向静态变量ret_buf
+ * 如果buf != NULL, 函数可重入，返回值指向出参buf
+ */
+char *TimeNow(char *buf)
+{
+	static char ret_buf[14+1];
+	char		*p;
+	
+	memset(ret_buf, 0, sizeof(ret_buf));
+	p = (buf ? buf : ret_buf);
+	memcpy(p, DateTimeNow(NULL) + 8, 6);
+	p[6] = '\0';
+
+	return p;
+}

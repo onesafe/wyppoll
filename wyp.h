@@ -46,14 +46,26 @@
 #define TRACE_NORMAL	6, __FILE__, __LINE__  /***正常信息***/
 #define TRACE_DEBUG	3, __FILE__, __LINE__ /***调试信息***/
 
+#define LOG_FILE_LEN	256		/* 日志文件长度 */
+
 #define MAXLINE 1024
 
-/********** 函数声明 ************/
-//int  Socket(int family, int type, int protocol);
-//int  Bind(int sockfd, const struct sockaddr_in myaddr);
-//int  Connect(int sockfd, const struct sockaddr_in servaddr);
-//int  Listen(int sockfd, int backlog);
-//ssize_t writen(int fd, const void *vptr, size_t n);
+/********** 函数声明io.c ************/
+int  Socket(int family, int type, int protocol);
+int  Bind(int sockfd, const struct sockaddr_in myaddr);
+int  Connect(int sockfd, const struct sockaddr_in servaddr);
+int  Listen(int sockfd, int backlog);
+ssize_t writen(int fd, const void *vptr, size_t n);
+ssize_t readn(int fd, void *vptr, size_t n);
+char *BuildFile(const char *file);
+char *Int2Buf(int value, char *buf, unsigned int len);
+char *BufToStr(const char *buf, unsigned int len);
+char *DateNow(char *buf);
+char *TimeNow(char *buf);
+
+
+
+
 
 
 
