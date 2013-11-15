@@ -7,10 +7,10 @@
 
 
 /****** 函数声明 ******/
-extern int  Socket(int family, int type, int protocol);
-extern int  Bind(int sockfd, const struct sockaddr_in myaddr);
-extern int  Listen(int sockfd, int backlog);
-extern ssize_t writen(int fd, const void *vptr, size_t n);
+//extern int  Socket(int family, int type, int protocol);
+//extern int  Bind(int sockfd, const struct sockaddr_in myaddr);
+//extern int  Listen(int sockfd, int backlog);
+//extern ssize_t writen(int fd, const void *vptr, size_t n);
 
 int init_socket_server(int iPort, int backlog);
 void str_echo(int sockfd);

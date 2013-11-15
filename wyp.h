@@ -48,6 +48,13 @@
 
 #define MAXLINE 1024
 
+/********** 函数声明 ************/
+//int  Socket(int family, int type, int protocol);
+//int  Bind(int sockfd, const struct sockaddr_in myaddr);
+//int  Connect(int sockfd, const struct sockaddr_in servaddr);
+//int  Listen(int sockfd, int backlog);
+//ssize_t writen(int fd, const void *vptr, size_t n);
+
 
 
 #endif

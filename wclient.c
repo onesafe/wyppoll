@@ -1,9 +1,9 @@
 #include "wyp.h"
 
 /****** 函数声明 ******/
-extern int  Socket(int family, int type, int protocol);
-extern int  Bind(int sockfd, const struct sockaddr_in myaddr);
-extern int  Connect(int sockfd, const struct sockaddr_in servaddr);
+//extern int  Socket(int family, int type, int protocol);
+//extern int  Bind(int sockfd, const struct sockaddr_in myaddr);
+//extern int  Connect(int sockfd, const struct sockaddr_in servaddr);
 
 
 void str_cli(FILE *fp, int sockfd);
