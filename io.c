@@ -108,3 +108,47 @@ ssize_t writen(int fd, const void *vptr, size_t n)
 	return (n);
 }
 
+
+/*
+ * 递归建立目录
+ *
+ * @file 入参 含全路径，文件名
+ * 	例：/da/shang/hai
+ * 	会建立/da/shang目录
+ *
+ * 返回@file
+ */
+char *BuildFile(const char *file)
+{
+	char *p = NULL;
+	char buf[512+19] = {0};
+	
+	for( p=(char *)file; abs((p=strchr(p, '/'))-file) < strlen(file); p++)
+	{
+		memset(buf, 0, sizeof(buf));
+		memcpy(buf, file, p-file);
+		mkdir(buf, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	}
+
+	return (char *)file;
+}
+
+
+
+/*
+ * 把数字转化成指定长度的buf，位数不足前补0
+ *
+ * @value 入参
+ * @buf   出参
+ * @len   入参
+ *
+ * 返回转化后的buf
+ */
+char *Int2Buf(int value, char *buf, unsigned int len)
+{
+	char tmpbuf[64] = {0};
+	sprintf(tmpbuf, "%0*d", len, value);
+	memcpy(buf, tmpbuf, len);
+	buf[len] = '\0';
+	return buf;
+}
